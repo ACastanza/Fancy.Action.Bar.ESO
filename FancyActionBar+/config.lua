@@ -51,6 +51,7 @@ FancyActionBar.abilityConfig = {
     - { effect_id } = timer will start when the effect is fired
     - false = ignore this slot
     ]]
+  [222678] = { 217654 }; -- Personal Don't Push
   -- Two Handed
   [38814] = { 131562 }; -- dizzying swing (off-balance)
   [38807] = { 61745 };  -- wrecking blow (major berserk)
@@ -675,7 +676,7 @@ FancyActionBar.abilityConfig = {
   [183047] = { 183047 }; -- recuperative treatise
   [185836] = { 185838 }; -- the imperfect ring
   [185839] = { 185840 }; -- rune of displacement
-  [182988] = { 182989 }; -- fulminating rune
+  [182988] = { }; -- fulminating rune
   [189791] = { 189792 }; -- the unblinking eye
   [189837] = { 191367 }; -- the tide king's gaze
   [189867] = { 189868 }; -- the languid eye
@@ -1006,7 +1007,7 @@ FancyActionBar.debuffIds = {
   [185823] = { 185825 }; -- tentacular dread (abyssal ink)
   [185836] = { 185838 }; -- the imperfect ring (the imperfect ring)
   [185839] = { 185840 }; -- rune of displacement (rune of displacement)
-  [182988] = { 182989 }; -- fulminating rune (fulminating rune)
+  [182988] = { }; -- fulminating rune (fulminating rune)
   [183165] = { 38254 };  -- runic jolt (taunt)
   [183430] = { 187742 }; -- runic sunder (armor steal)
   [186531] = { 38254 };  -- runic embrace (taunt)
@@ -1124,9 +1125,6 @@ FancyActionBar.fakeClassEffects = {
   --[117] = {};
 };
 
--- Abilities Defined Here will be Processed through the FancyActionBar.HandleSpecial function
--- The Key for each table is the AbilityId you want to modify through HandleSpecial, the id key is the target Ability
-
 FancyActionBar.specialEffects = {
   [52790] = { id = 52790; stackId = 52790; isDebuff = true; forceShow = true }; -- Debuff Effect for the Taunt Counter
   [35750] = { id = 35750; stackId = 35750; stacks = 1; procs = 1; hasProced = 0; isDebuff = false; keepOnTargetChange = true; forceExpireStacks = true; needCombatEvent = true }; -- Trap Beast Placed
@@ -1186,7 +1184,7 @@ FancyActionBar.specialClassEffectProcs = {
   };
   -- Arcanist
   [117] = {
-    --[184258] = { [1] = { id = 182988; stacks = 0; procs = 1; hasProced = 0 } };
+    [184258] = { [1] = { id = 182988; stacks = 0; procs = 1; hasProced = 0 } };
     --[182989] = { [1] = { id = 182988; stacks = 0; procs = 1; hasProced = 0 }; };
   };
 };
