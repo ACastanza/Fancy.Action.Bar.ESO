@@ -4,7 +4,7 @@ local FancyActionBar = FancyActionBar;
 -----------------------------[    Constants   ]--------------------------------
 -------------------------------------------------------------------------------
 local NAME = "FancyActionBar+";
-local VERSION = "2.6.0";
+local VERSION = "2.6.1";
 local slashCommand = "/fab" or "/FAB";
 local EM = GetEventManager();
 local WM = GetWindowManager();
@@ -1247,6 +1247,7 @@ function FancyActionBar.SlotEffect(index, abilityId, overrideRank, casterUnitTag
     if has then effect.endTime = time() + dur; end;
 
     if effect.stackId and (effect.id ~= effect.stackId) then
+      local _
       _, _, stacks = FancyActionBar.CheckForActiveEffect(effect.stackId);
       FancyActionBar.stacks[effect.stackId] = stacks;
     else
@@ -1532,10 +1533,12 @@ function FancyActionBar.BuildAbilityConfig() -- Parse FancyActionBar.abilityConf
     end;
   end;
 
+  local parsedCustomConfig = {};
   for id, cfg in pairs(config) do
     local toggled, hide = false, false;
     if customConfig[id] then
       cfg = customConfig[id];
+      parsedCustomConfig[id] = true;
     end;
 
     -- if debuffs[id]
@@ -1562,6 +1565,24 @@ function FancyActionBar.BuildAbilityConfig() -- Parse FancyActionBar.abilityConf
       abilityConfig[id] = false;
     else
       abilityConfig[id] = nil;
+    end;
+  end;
+
+  for id, cfg in pairs(customConfig) do
+    if not parsedCustomConfig[id] then
+      local toggled, hide = false, false;
+      local cI, rI = id, false;
+
+      cfg = customConfig[id];
+      if FancyActionBar.toggled[id] then
+        toggled = true; FancyActionBar.toggles[id] = false;
+      end;
+      if FancyActionBar.removeInstantly[cI] then rI = true; end;
+      if cfg and cfg[1] then
+        abilityConfig[id] = { cfg[1]; true; toggled; rI };
+      else
+        abilityConfig[id] = nil;
+      end;
     end;
   end;
 
